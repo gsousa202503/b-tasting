@@ -163,7 +163,12 @@ export function AppSidebar() {
                     <TooltipTrigger asChild>
                       {linkContent}
                     </TooltipTrigger>
-                    <TooltipContent side="right" className="ml-2">
+                    <TooltipContent 
+                      side="right" 
+                      className="ml-2 z-[9999] bg-popover text-popover-foreground border shadow-md"
+                      sideOffset={8}
+                      avoidCollisions={true}
+                    >
                       <p>{item.title}</p>
                     </TooltipContent>
                   </Tooltip>
@@ -201,7 +206,12 @@ export function AppSidebar() {
                       <Beer className="h-4 w-4 text-beer-dark/70" />
                     </div>
                   </TooltipTrigger>
-                  <TooltipContent side="right" className="ml-2">
+                  <TooltipContent 
+                    side="right" 
+                    className="ml-2 z-[9999] bg-popover text-popover-foreground border shadow-md"
+                    sideOffset={8}
+                    avoidCollisions={true}
+                  >
                     <p>B-Tasting v1.0.0</p>
                   </TooltipContent>
                 </Tooltip>

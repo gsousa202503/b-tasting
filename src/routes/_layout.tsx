@@ -8,6 +8,7 @@ import { AuthGuard } from '@/components/auth/auth-guard';
 export const Route = createFileRoute('/_layout')({
   beforeLoad: ({ context, location }) => {
     // Only redirect if user is definitely not authenticated and not loading
+    // The auth provider will handle token validation and expiration checks
     if (!context.auth?.isAuthenticated && !context.auth?.isLoading) {
       // Store the current path for redirect after login
       sessionStorage.setItem('b-tasting-redirect-after-login', location.pathname);

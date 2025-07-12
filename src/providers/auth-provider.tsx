@@ -29,7 +29,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const userData = authStorage.getUserData();
 
       if (token && userData) {
-        // Validate token with server
+        // Validate token with server (includes expiration check)
         try {
           const validatedUser = await authApi.getCurrentUser(token);
           setUser(validatedUser);
@@ -38,9 +38,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
           // Clear any redirect path since user is authenticated
           sessionStorage.removeItem('b-tasting-redirect-after-login');
         } catch (error) {
-          // Token is invalid, clear storage
+          // Token is invalid or expired, clear storage
           authStorage.clearAll();
-          console.error('Token validation failed:', error);
+          const errorMessage = error instanceof Error ? error.message : 'Token validation failed';
+          console.log('Token validation failed:', errorMessage);
+          
+          // Only show toast for unexpected errors, not for expired tokens
+          if (errorMessage !== 'Token expirado') {
+            console.error('Unexpected token validation error:', error);
+          }
         }
       } else {
         console.log('No stored authentication found');
@@ -122,6 +128,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       authStorage.setUserData(response.user, rememberMe);
 
       setUser(response.user);
+      
+      console.log('Token refreshed successfully for user:', response.user.name);
       
     } catch (error) {
       console.error('Token refresh failed:', error);

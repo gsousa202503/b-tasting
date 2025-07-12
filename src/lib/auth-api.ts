@@ -1,5 +1,6 @@
 import { LoginCredentials, AuthResponse, User } from '@/types/auth';
 import { loadingSimulation } from '@/lib/mock-delays';
+import jwt from 'jwt-decode';
 
 // Mock API - Replace with actual API endpoints
 const API_BASE_URL = '/api/auth';
@@ -58,7 +59,22 @@ export const authApi = {
     }
 
     // Generate mock tokens
-    const token = `mock-jwt-token-${user.id}-${Date.now()}`;
+    const now = Math.floor(Date.now() / 1000);
+    const exp = now + 3600; // 1 hour from now
+    
+    // Create a mock JWT token with proper structure
+    const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+    const payload = btoa(JSON.stringify({
+      sub: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      iat: now,
+      exp: exp
+    }));
+    const signature = btoa(`mock-signature-${user.id}`);
+    const token = `${header}.${payload}.${signature}`;
+    
     const refreshToken = `mock-refresh-token-${user.id}-${Date.now()}`;
 
     return {
@@ -83,7 +99,22 @@ export const authApi = {
       throw new Error('Token de atualização inválido');
     }
 
-    const newToken = `mock-jwt-token-${user.id}-${Date.now()}`;
+    const now = Math.floor(Date.now() / 1000);
+    const exp = now + 3600; // 1 hour from now
+    
+    // Create a new mock JWT token
+    const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+    const payload = btoa(JSON.stringify({
+      sub: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      iat: now,
+      exp: exp
+    }));
+    const signature = btoa(`mock-signature-${user.id}`);
+    const newToken = `${header}.${payload}.${signature}`;
+    
     const newRefreshToken = `mock-refresh-token-${user.id}-${Date.now()}`;
 
     return {
@@ -102,30 +133,74 @@ export const authApi = {
   getCurrentUser: async (token: string): Promise<User> => {
     await loadingSimulation.authentication();
 
-    // Mock user validation with robust token format checking
+    // Validate JWT token format and expiration
     if (!token || typeof token !== 'string') {
       throw new Error('Token inválido');
     }
 
-    const tokenParts = token.split('-');
+    try {
+      // Decode the JWT token
+      const decoded: any = jwt(token);
+      
+      // Check if token is expired
+      const now = Math.floor(Date.now() / 1000);
+      if (decoded.exp && decoded.exp < now) {
+        throw new Error('Token expirado');
+      }
+      
+      // Find user by ID from token
+      const user = mockUsers.find(u => u.id === decoded.sub);
+      
+      if (!user) {
+        throw new Error('Usuário não encontrado');
+      }
+      
+      return user;
+      
+    } catch (error) {
+      if (error instanceof Error && error.message === 'Token expirado') {
+        throw error;
+      }
+      
+      // Fallback to old token format for backward compatibility
+      const tokenParts = token.split('.');
+      
+      if (tokenParts.length === 3) {
+        try {
+          const payload = JSON.parse(atob(tokenParts[1]));
+          const user = mockUsers.find(u => u.id === payload.sub);
+          
+          if (!user) {
+            throw new Error('Token inválido');
+          }
+          
+          return user;
+        } catch {
+          throw new Error('Token inválido');
+        }
+      }
+      
+      // Legacy token format
+      const legacyParts = token.split('-');
+      if (legacyParts.length !== 4 || legacyParts[0] !== 'mock' || legacyParts[1] !== 'jwt' || legacyParts[2] !== 'token') {
+        throw new Error('Token inválido');
+      }
     
-    // Verify token has the expected format: mock-jwt-token-{userId}-{timestamp}
-    if (tokenParts.length !== 4 || tokenParts[0] !== 'mock' || tokenParts[1] !== 'jwt' || tokenParts[2] !== 'token') {
-      throw new Error('Token inválido');
-    }
 
-    const userId = tokenParts[3];
+      const userId = legacyParts[3];
+      
+      if (!userId) {
+        throw new Error('Token inválido');
+      }
     
-    if (!userId) {
-      throw new Error('Token inválido');
+
+      const user = mockUsers.find(u => u.id === userId);
+
+      if (!user) {
+        throw new Error('Token inválido');
+      }
+
+      return user;
     }
-
-    const user = mockUsers.find(u => u.id === userId);
-
-    if (!user) {
-      throw new Error('Token inválido');
-    }
-
-    return user;
   },
 };

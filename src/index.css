@@ -153,4 +153,14 @@
   .loading-bounce {
     animation: loading-bounce 1.5s ease-in-out infinite;
   }
+  
+  /* Ensure tooltips are always on top */
+  [data-radix-popper-content-wrapper] {
+    z-index: 9999 !important;
+  }
+  
+  /* Tooltip specific z-index */
+  [role="tooltip"] {
+    z-index: 9999 !important;
+  }
 }
