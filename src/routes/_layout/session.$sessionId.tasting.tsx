@@ -3,6 +3,9 @@ import { AdvancedTastingInterface } from '@/components/tasting-interface/advance
 
 export const Route = createFileRoute('/_layout/session/$sessionId/tasting')({
   component: TastingInterfaceComponent,
+  meta: {
+    label: 'Interface de Degustação',
+  },
 });
 
 function TastingInterfaceComponent() {

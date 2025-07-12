@@ -132,7 +132,7 @@ export function SessionEvaluationPage({ sessionId }: SessionEvaluationPageProps)
       });
       
       await finalizePromise;
-    } catch (error) {
+      navigate({ to: '/sessoes' });
       console.error('Error finalizing session:', error);
     }
   };
@@ -166,7 +166,7 @@ export function SessionEvaluationPage({ sessionId }: SessionEvaluationPageProps)
           <h2 className="mt-4 text-xl font-semibold text-beer-dark">Sessão não encontrada</h2>
           <p className="mt-2 text-muted-foreground">A sessão solicitada não existe ou foi removida.</p>
           <Button 
-            onClick={() => navigate({ to: '/sessions' })}
+            onClick={() => navigate({ to: '/sessoes' })}
             className="mt-4 bg-beer-medium hover:bg-beer-dark"
           >
             Voltar para Sessões

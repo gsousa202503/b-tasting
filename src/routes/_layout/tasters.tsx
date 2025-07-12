@@ -24,6 +24,9 @@ import { mockTasters } from '@/lib/mock-data';
 
 export const Route = createFileRoute('/_layout/tasters')({
   component: Tasters,
+  meta: {
+    label: 'Degustadores',
+  },
 });
 
 function Tasters() {

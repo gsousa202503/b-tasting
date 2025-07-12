@@ -3,6 +3,9 @@ import { SessionEvaluationPage } from '@/features/sessions/components/session-ev
 
 export const Route = createFileRoute('/_layout/session/$sessionId/evaluation')({
   component: SessionEvaluationComponent,
+  meta: {
+    label: 'Avaliação da Sessão',
+  },
 });
 
 function SessionEvaluationComponent() {

@@ -4,6 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 export const Route = createFileRoute('/_layout/sessions')({
   component: Sessions,
+  meta: {
+    label: 'Sessões de Degustação',
+  },
 });
 
 function Sessions() {

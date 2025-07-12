@@ -6,11 +6,14 @@ export const Route = createFileRoute('/login')({
     // If user is already authenticated, redirect to dashboard
     if (context.auth?.isAuthenticated) {
       throw redirect({
-        to: '/',
+        to: '/painel',
       });
     }
   },
   component: LoginPage,
+  meta: {
+    label: 'Entrar',
+  },
 });
 
 function LoginPage() {

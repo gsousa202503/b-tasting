@@ -3,6 +3,9 @@ import { ProductsManagement } from '@/features/products/components/products-mana
 
 export const Route = createFileRoute('/_layout/products')({
   component: ProductsPage,
+  meta: {
+    label: 'Produtos',
+  },
 });
 
 function ProductsPage() {

@@ -3,6 +3,9 @@ import { OrderingManagement } from '@/features/ordering/components/ordering-mana
 
 export const Route = createFileRoute('/_layout/ordering')({
   component: OrderingPage,
+  meta: {
+    label: 'Ordenação',
+  },
 });
 
 function OrderingPage() {

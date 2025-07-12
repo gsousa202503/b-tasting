@@ -14,7 +14,7 @@ export const Route = createFileRoute('/_layout')({
       sessionStorage.setItem('b-tasting-redirect-after-login', location.pathname);
       
       throw redirect({
-        to: '/login',
+        to: '/entrar',
       });
     }
   },

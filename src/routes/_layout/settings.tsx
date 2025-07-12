@@ -19,6 +19,9 @@ import { toast } from 'sonner';
 
 export const Route = createFileRoute('/_layout/settings')({
   component: Settings,
+  meta: {
+    label: 'Configurações',
+  },
 });
 
 function Settings() {

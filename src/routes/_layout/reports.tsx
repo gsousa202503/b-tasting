@@ -27,6 +27,9 @@ import { mockSessions } from '@/lib/mock-data';
 
 export const Route = createFileRoute('/_layout/reports')({
   component: Reports,
+  meta: {
+    label: 'Relatórios',
+  },
 });
 
 function Reports() {

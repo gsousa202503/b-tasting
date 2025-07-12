@@ -3,6 +3,9 @@ import { MonitoringDashboard } from '@/components/monitoring/monitoring-dashboar
 
 export const Route = createFileRoute('/_layout/monitoring')({
   component: MonitoringPage,
+  meta: {
+    label: 'Monitoramento',
+  },
 });
 
 function MonitoringPage() {

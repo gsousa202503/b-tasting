@@ -5,6 +5,9 @@ import { Beer, Users, FlaskConical, CheckCircle } from 'lucide-react';
 
 export const Route = createFileRoute('/_layout/')({
   component: Dashboard,
+  meta: {
+    label: 'Painel de Controle',
+  },
 });
 
 function Dashboard() {

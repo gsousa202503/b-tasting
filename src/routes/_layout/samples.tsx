@@ -3,6 +3,9 @@ import { SamplesDataTable } from '@/components/samples-data-table';
 
 export const Route = createFileRoute('/_layout/samples')({
   component: Samples,
+  meta: {
+    label: 'Resultados de Ensaios',
+  },
 });
 
 function Samples() {

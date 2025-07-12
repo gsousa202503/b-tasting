@@ -210,7 +210,7 @@ export function SessionsTable() {
                       </DropdownMenuItem>
                       {(session.status === 'active' || session.status === 'draft') && (
                         <DropdownMenuItem asChild>
-                          <Link to="/session/$sessionId/evaluation" params={{ sessionId: session.id }}>
+                          <Link to="/sessao/$sessionId/avaliacao" params={{ sessionId: session.id }}>
                             <ArrowRight className="mr-2 h-4 w-4" />
                             Ir para Avaliação
                           </Link>
@@ -218,7 +218,7 @@ export function SessionsTable() {
                       )}
                       {(session.status === 'active' || session.status === 'draft') && (
                         <DropdownMenuItem asChild>
-                          <Link to="/session/$sessionId/tasting" params={{ sessionId: session.id }}>
+                          <Link to="/sessao/$sessionId/degustacao" params={{ sessionId: session.id }}>
                             <TestTube className="mr-2 h-4 w-4" />
                             Interface de Degustação
                           </Link>

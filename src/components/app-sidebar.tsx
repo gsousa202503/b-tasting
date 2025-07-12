@@ -14,52 +14,52 @@ const sidebarItems = [
   {
     title: 'Painel',
     icon: Home,
-    href: '/',
+    href: '/painel',
   },
   {
     title: 'Sessões',
     icon: Beer,
-    href: '/sessions',
+    href: '/sessoes',
   },
   {
     title: 'Produtos',
     icon: Package,
-    href: '/products',
+    href: '/produtos',
   },
   {
     title: 'Amostras',
     icon: FlaskConical,
-    href: '/samples',
+    href: '/amostras',
   },
   {
     title: 'Monitoramento',
     icon: Monitor,
-    href: '/monitoring',
+    href: '/monitoramento',
   },
   {
     title: 'Degustadores',
     icon: Users,
-    href: '/tasters',
+    href: '/degustadores',
   },
   {
     title: 'Ordenação',
     icon: Zap,
-    href: '/ordering',
+    href: '/ordenacao',
   },
   {
     title: 'Regras de Ordenação',
     icon: Target,
-    href: '/ordering-rules',
+    href: '/regras-de-ordenacao',
   },
   {
     title: 'Relatórios',
     icon: BarChart3,
-    href: '/reports',
+    href: '/relatorios',
   },
   {
     title: 'Configurações',
     icon: Settings,
-    href: '/settings',
+    href: '/configuracoes',
   },
 ];
 
