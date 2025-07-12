@@ -1,6 +1,6 @@
 import { LoginCredentials, AuthResponse, User } from '@/types/auth';
 import { loadingSimulation } from '@/lib/mock-delays';
-import jwt from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 // Mock API - Replace with actual API endpoints
 const API_BASE_URL = '/api/auth';
@@ -140,7 +140,7 @@ export const authApi = {
 
     try {
       // Decode the JWT token
-      const decoded: any = jwt(token);
+      const decoded: any = jwtDecode(token);
       
       // Check if token is expired
       const now = Math.floor(Date.now() / 1000);
